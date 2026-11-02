@@ -26,7 +26,8 @@ in the guide for eventual release packaging.
 
 ## Validation limits
 
-The cloud workflow has been prepared but has not run. Local C++/Qt tests pass.
+The native cloud builds and tests have passed on all four targets. Mac PKG
+installation is checked on each native runner.
 CI compilation and packaging do not establish OBS rendering/load behavior.
 After downloading, exercise the full acceptance checklist on each platform.
 Keep the accepted 1.0.4 Windows package until the new candidate is accepted.
@@ -36,3 +37,7 @@ https://github.com/wzaggle/SimpleCamDirect/blob/main/docs/CLOUD_BUILDS.md
 https://github.com/obsproject/obs-studio/releases/tag/33.0.1
 
 OBS 33 native Linux packages install under /usr/lib/x86_64-linux-gnu/obs-modules/plugins, with a matching data directory under /usr/share/obs/obs-modules/plugins. User manual installations use XDG_DATA_HOME/obs-studio/plugins/OBS-Clock/OBS-Clock.so (default ~/.local/share). This follows frontend/plugin-manager/PluginModuleLoader_Linux.cpp in the pinned OBS 33 source.
+
+Final matching installer build: https://github.com/wzaggle/OBS-Clock/actions/runs/41390335998
+
+Source: 48a9b234b549e12d3a02d0ac704cf380634e0c94

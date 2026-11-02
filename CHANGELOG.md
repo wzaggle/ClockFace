@@ -6,7 +6,9 @@
 - Preserved the Windows GDI backend and existing source/settings IDs.
 - Added four native GitHub Actions builds and platform installer packaging.
 - Expanded installation documentation across Windows, macOS, Linux and Flatpak.
-- Native cloud build and runtime acceptance are pending.
+- Native Windows, Intel Mac, Apple silicon Mac and Ubuntu builds/tests passed.
+- Generated and checked the matching installer set from source 48a9b234b549e12d3a02d0ac704cf380634e0c94.
+- Live OBS acceptance remains pending.
 
 # Change history
 

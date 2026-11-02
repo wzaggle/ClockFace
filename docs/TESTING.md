@@ -1,6 +1,6 @@
-# Testing OBS Clock 1.0.4
+# Testing OBS Clock 1.1.0
 
-## Recorded evidence
+## Windows 1.0.4 baseline evidence
 
 - User confirmed that the 0.1.2 Windows plugin loaded after the runtime FILE fix.
 - Subsequent user feedback addressed visible controls and styling; the 1.0.4
@@ -43,7 +43,7 @@ because the plugin changes text content rather than source visibility.
 
 ## Report a result
 
-Record OBS version, Windows architecture, plugin version/SHA-256, test steps,
+Record OBS version, operating system and architecture, plugin version/SHA-256, test steps,
 expected behavior, actual behavior, and relevant current OBS log lines. Keep
 private logs and environment details out of public issues unless reviewed.
 
@@ -55,7 +55,15 @@ private logs and environment details out of public issues unless reviewed.
 - Qt backend suite passed: UTC, New York winter/DST, zone enumeration, text
   dimensions, visible text, transparent background, exact straight RGB and empty text.
 - Windows source cross-compilation passed with the preserved GDI backend.
-- Native cloud builds, installer runs, Flatpak packaging and live OBS checks are pending.
+- Native cloud compilation/tests and installer packaging have passed on all four targets.
+  macOS per-user installation is exercised by CI. Live OBS checks, Windows installer
+  execution on a user machine, Linux installation and Flatpak packaging remain pending.
 
 Repeat the acceptance scenarios on Windows, Intel Mac, Apple silicon Mac, and
 Ubuntu26 native OBS. Record architecture and platform-specific time-zone IDs.
+
+## Matching native build evidence
+
+See https://github.com/wzaggle/OBS-Clock/actions/runs/41390335998 for the final
+OBS 33 installation-layout build. The combined artifact records source commit
+48a9b234b549e12d3a02d0ac704cf380634e0c94 in all four BUILD-INFO files.
