@@ -55,6 +55,4 @@ Mac test packages are ad-hoc signed, not Developer ID signed or notarized.
 
 ## License
 
-See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). Original supplied artwork has
-unconfirmed redistribution rights. Keep this development repository private
-until those assets have been cleared or replaced before public distribution.
+See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). 
