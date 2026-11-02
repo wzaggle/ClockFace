@@ -3,6 +3,7 @@
 ## Product and scope
 
 - Public name: OBS Clock. Current version: 1.1.0.
+- C++ port from significantly enhanced OBS_Clock.lua script.
 - Windows filename and folder: OBS-Clock.dll in an OBS-Clock folder.
 - Preserve the internal source ID `simpleclock_source`. It is a compatibility key,
   not a branding string. Preserve saved setting keys and intentional migrations.
