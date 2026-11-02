@@ -2,7 +2,7 @@
 
 ## Native GitHub builds
 
-Open this repository's Actions tab, select **Build All Platforms**, and choose
+Use Actions tab, select **Build All Platforms**, and choose
 **Run workflow** on main. Infrastructure changes also trigger a validation run.
 The four jobs build one source commit and run tests before packaging:
 
