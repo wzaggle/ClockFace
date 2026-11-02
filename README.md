@@ -39,7 +39,7 @@ The release provides individual Windows, Apple silicon Mac, Intel Mac, and Ubunt
 installers, plus the combined AllPlatforms ZIP, Word user guide, and SHA-256 checksums.
 Release assets remain available independently of the expiring Actions artifacts.
 
-[The previous build run](https://github.com/wzaggle/ClockFace/actions/runs/41390335998)
+[The verified ClockFace build run](https://github.com/wzaggle/ClockFace/actions/runs/41513046742)
 records the source revision and native test results. The repository keeps the full
 source, artwork, AGENTS.md and build scripts.
 

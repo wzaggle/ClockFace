@@ -40,3 +40,8 @@ OBS 33 native Linux packages install under /usr/lib/x86_64-linux-gnu/obs-modules
 Previous installer build: https://github.com/wzaggle/ClockFace/actions/runs/41390335998
 
 Source: 48a9b234b549e12d3a02d0ac704cf380634e0c94
+
+ClockFace 1.1.1 installer build: https://github.com/wzaggle/ClockFace/actions/runs/41513046742
+
+Source: 3c3a975d1b61945e1232b87ffcc0f754eff3bdfa. All four native jobs and
+the combined revision check passed. Release assets are published separately.

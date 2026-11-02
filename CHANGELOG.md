@@ -28,7 +28,7 @@ Scheduling and source-routing behavior did not change.
 
 ## 1.0.3
 
-Changed the display name to ClockFace and the filename/folder to ClockFace.
+Changed the display name to OBS Clock and the filename/folder to OBS-Clock.
 Organized the two-tier message controls and embedded the new Windows clock icon.
 Preserved the internal source identifier and saved setting keys.
 
@@ -44,7 +44,7 @@ and conditional color controls.
 
 ## 1.0
 
-Named the plugin ClockFace and added independent number and tick-mark colors.
+Named the plugin OBSClock and added independent number and tick-mark colors.
 
 ## Earlier development
 

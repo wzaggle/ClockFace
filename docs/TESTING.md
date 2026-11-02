@@ -67,3 +67,12 @@ Ubuntu26 native OBS. Record architecture and platform-specific time-zone IDs.
 See https://github.com/wzaggle/ClockFace/actions/runs/41390335998 for the final
 OBS 33 installation-layout build. The combined artifact records source commit
 48a9b234b549e12d3a02d0ac704cf380634e0c94 in all four BUILD-INFO files.
+
+## ClockFace 1.1.1 build evidence
+
+Native build https://github.com/wzaggle/ClockFace/actions/runs/41513046742
+uses source 3c3a975d1b61945e1232b87ffcc0f754eff3bdfa. All four platform
+compilation/test/package jobs passed, including both Mac per-user installer checks.
+The combined package revisions and file checksums were verified before publishing.
+The source type is now clockface_source; recreate earlier test sources.
+Live OBS acceptance remains pending on each platform.
