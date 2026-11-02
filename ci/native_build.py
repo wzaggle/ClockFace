@@ -80,7 +80,8 @@ def main():
  run(*args,env=env);run('cmake','--build',build,'--config','Release','--parallel','4',env=env)
  env['QT_QPA_PLATFORM']='offscreen'
  run('ctest','--test-dir',build,'-C','Release','--output-on-failure',env=env)
- stage=ROOT/'stage';run('cmake','--install',build,'--config','Release','--prefix',stage,env=env)
+ stage=ROOT/'stage';prefix=stage/'usr' if kind=='linux' else stage
+ run('cmake','--install',build,'--config','Release','--prefix',prefix,env=env)
  out=ROOT/'packages'/kind;out.mkdir(parents=True,exist_ok=True)
  if kind=='windows':
   # Inno output is moved into the same platform directory as metadata.
@@ -115,6 +116,8 @@ def main():
   if not installed.exists() or installed.read_bytes()!=binary.read_bytes():raise RuntimeError('Installer verification failed')
   with tarfile.open(out/f'OBS-Clock-{VERSION}-{kind}-manual.tar.gz','w:gz') as archive:archive.add(bundle,arcname=bundle.name)
  else:
+  expected_plugin=stage/'usr/lib/x86_64-linux-gnu/obs-modules/plugins/OBS-Clock.so'
+  if not expected_plugin.is_file():raise RuntimeError('OBS 33 Linux plugin layout missing')
   control=stage/'DEBIAN';control.mkdir(exist_ok=True)
   # Derived package requirements include the Qt version used by this runner.
   qtversion=subprocess.check_output(['pkg-config','--modversion','Qt6Gui'],text=True).strip()

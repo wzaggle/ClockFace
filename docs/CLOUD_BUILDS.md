@@ -34,3 +34,5 @@ Keep the accepted 1.0.4 Windows package until the new candidate is accepted.
 Source references:
 https://github.com/wzaggle/SimpleCamDirect/blob/main/docs/CLOUD_BUILDS.md
 https://github.com/obsproject/obs-studio/releases/tag/33.0.1
+
+OBS 33 native Linux packages install under /usr/lib/x86_64-linux-gnu/obs-modules/plugins, with a matching data directory under /usr/share/obs/obs-modules/plugins. User manual installations use XDG_DATA_HOME/obs-studio/plugins/OBS-Clock/OBS-Clock.so (default ~/.local/share). This follows frontend/plugin-manager/PluginModuleLoader_Linux.cpp in the pinned OBS 33 source.

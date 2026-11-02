@@ -93,11 +93,11 @@ Create the plugins folder if needed and copy the complete **OBS-Clock.plugin** b
 3. Complete any dependency installation requested by the package manager.
 4. Restart OBS and add **OBS Clock** through Sources.
 
-**Manual installation fallback:** Follow the supplied archive's instructions and preserve its library and data layout. OBS lists this user plugin directory:
+**Manual installation fallback:** For OBS 33, copy the Linux library into its own folder under the user data directory:
 
-`~/.config/obs-studio/plugins/`
+`~/.local/share/obs-studio/plugins/OBS-Clock/OBS-Clock.so`
 
-The plugin uses a **.so** shared library. System package locations vary by distribution; use the package's paths rather than copying the Windows DLL. The release package instructions govern the exact internal layout.
+If XDG_DATA_HOME is set, use that directory instead of ~/.local/share. The Ubuntu installer uses /usr/lib/x86_64-linux-gnu/obs-modules/plugins/. Keep the package layout intact. The Windows DLL cannot run on Linux.
 
 ### Linux Flatpak installation
 
