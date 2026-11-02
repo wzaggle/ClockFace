@@ -74,8 +74,9 @@ def main():
   options+=['-DCMAKE_INSTALL_LIBDIR=lib/x86_64-linux-gnu']
  build=ROOT/'out'/kind
  args=['cmake','-S',ROOT,'-B',build,'-DCMAKE_BUILD_TYPE=Release','-DOBS_INCLUDE_DIR='+str(headers),'-DOBS_GENERATED_INCLUDE_DIR='+str(generated),'-DOBS_IMPORT_LIBRARY='+str(library),*options]
- if kind=='windows':args+=['-A','x64']
- else:args+=['-G','Ninja']
+ # VsDevCmd already selects x64. Ninja works with that compiler environment
+ # and avoids CMake choosing NMake, which does not accept -A.
+ args+=['-G','Ninja']
  run(*args,env=env);run('cmake','--build',build,'--config','Release','--parallel','4',env=env)
  env['QT_QPA_PLATFORM']='offscreen'
  run('ctest','--test-dir',build,'-C','Release','--output-on-failure',env=env)
