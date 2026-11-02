@@ -1,11 +1,33 @@
 {
- "obs_version":"33.0.1",
- "assets":{
-  "sources":{"name":"OBS-Studio-33.0.1-Sources.tar.gz","sha256":"c8d3a8f69a0f17970ac0a8f2a2462f1bc4dacd324f6da0c4b408d442d4798913"},
-  "windows":{"name":"OBS-Studio-33.0.1-Windows-x64.zip","sha256":"0d9436451c2d772b33428e3fdae9776f071895c335de17283176306fb72651d3"},
-  "macos-arm64":{"name":"OBS-Studio-33.0.1-macOS-Apple.dmg","sha256":"3d6b2eedeb56416602af635adaba32327fdf11ff9d2806a4ce7d5b608de73238"},
-  "macos-x86_64":{"name":"OBS-Studio-33.0.1-macOS-Intel.dmg","sha256":"745257d65e06eb0f784af229659223a863ad50d036464bb2b52f8a2d9278c2b1"},
-  "linux":{"name":"OBS-Studio-33.0.1-Ubuntu-26.04-x86_64.deb","sha256":"a9f062057576074439e6467f2716e3bbed6a0edab6ebf2c2f9595a3d2f1dc57f"}
- },
- "macos_qt":{"url":"https://github.com/obsproject/obs-deps/releases/download/2026-10-23/macos-deps-qt6-2026-10-23-universal.tar.xz","sha256":"b216560cea8497207f9fc350c713716fb84aec6b973bb0ff8ac6add7734abad5"}
+  "obs_version": "33.0.1",
+  "assets": {
+    "sources": {
+      "name": "OBS-Studio-33.0.1-Sources.tar.gz",
+      "sha256": "c8d3a8f69a0f17970ac0a8f2a2462f1bc4dacd324f6da0c4b408d442d4798913"
+    },
+    "windows": {
+      "name": "OBS-Studio-33.0.1-Windows-x64.zip",
+      "sha256": "0d9436451c2d772b33428e3fdae9776f071895c335de17283176306fb72651d3"
+    },
+    "macos-arm64": {
+      "name": "OBS-Studio-33.0.1-macOS-Apple.dmg",
+      "sha256": "3d6b2eedeb56416602af635adaba32327fdf11ff9d2806a4ce7d5b608de73238"
+    },
+    "macos-x86_64": {
+      "name": "OBS-Studio-33.0.1-macOS-Intel.dmg",
+      "sha256": "745257d65e06eb0f784af229659223a863ad50d036464bb2b52f8a2d9278c2b1"
+    },
+    "linux": {
+      "name": "OBS-Studio-33.0.1-Ubuntu-26.04-x86_64.deb",
+      "sha256": "a9f062057576074439e6467f2716e3bbed6a0edab6ebf2c2f9595a3d2f1dc57f"
+    }
+  },
+  "macos_qt": {
+    "url": "https://github.com/obsproject/obs-deps/releases/download/2026-10-23/macos-deps-qt6-2026-10-23-universal.tar.xz",
+    "sha256": "b216560cea8497207f9fc350c713716fb84aec6b973bb0ff8ac6add7734abad5"
+  },
+  "macos_prebuilt": {
+    "url": "https://github.com/obsproject/obs-deps/releases/download/2026-10-23/macos-deps-2026-10-23-universal.tar.xz",
+    "sha256": "6ded92c5d97f1d1b5effa07be13cc9f539826aa9c65013a15872328e39acffbf"
+  }
 }

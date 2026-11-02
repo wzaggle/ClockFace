@@ -42,6 +42,8 @@ def main():
   for line in result.splitlines():
    if '=' in line and not line.startswith('='):
     key,value=line.split('=',1);env[key]=value
+  # Windows resolves executable paths using this process environment.
+  os.environ.update(env);env=os.environ.copy()
   host=SDK/'obs-windows';host.mkdir(exist_ok=True)
   with zipfile.ZipFile(asset(kind)) as z:z.extractall(host)
   library=SDK/'obs.lib'
@@ -55,6 +57,9 @@ def main():
   libraries=[p for p in (SDK/'OBS.app/Contents/Frameworks').rglob('*') if p.is_file() and (p.name=='libobs' or p.name=='libobs.0.dylib')]
   if not libraries:raise RuntimeError('OBS host library not found')
   library=libraries[0]
+  deps=SPEC['macos_prebuilt'];unpack(fetch(deps['url'],deps['sha256']),SDK/'prebuilt')
+  simde=next((SDK/'prebuilt').rglob('simde/x86/sse2.h'))
+  options+=['-DOBS_EXTRA_INCLUDE_DIR='+str(simde.parents[2])]
   qt=SPEC['macos_qt'];unpack(fetch(qt['url'],qt['sha256']),SDK/'qt')
   qtconfig=next((SDK/'qt').rglob('Qt6Config.cmake'))
   # Qt6Config.cmake lives at <prefix>/lib/cmake/Qt6.
@@ -120,6 +125,8 @@ def main():
   (control/'control').write_text(f'Package: obs-clock\nVersion: {VERSION}\nArchitecture: amd64\nMaintainer: William Zaggle\nSection: video\nPriority: optional\nDepends: obs-studio (>= 33.0.1), {gui_package} (>= {qtversion}), {core_package} (>= {qtversion}), libstdc++6\nDescription: OBS Clock analog clock and scheduled message source\n')
   run('dpkg-deb','--root-owner-group','--build',stage,out/f'OBS-Clock-{VERSION}-Ubuntu26.04-amd64.deb')
   run('dpkg-deb','--info',next(out.glob('*.deb')))
+ for document in [ROOT/'USER.md',ROOT/'LICENSE',ROOT/f'docs/OBS-Clock-User-Guide-v{VERSION}.docx']:
+  shutil.copy2(document,out/document.name)
  revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
  (out/'BUILD-INFO.json').write_text(json.dumps({'product':'OBS Clock','version':VERSION,'revision':revision,'platform':kind,'obs_sdk':SPEC['obs_version'],'automated_tests':'passed','obs_runtime_test':'not performed by CI','signing':'ad-hoc, not notarized' if kind.startswith('macos') else 'unsigned test installer'},indent=2)+'\n')
  (out/'INSTALL.txt').write_text('Close OBS before installing. Use the installer for this platform. See the included OBS Clock user guide. Native Linux DEB targets Ubuntu 26.04 and is not a Flatpak extension. macOS test packages are ad-hoc signed, not notarized.\n')
