@@ -1,4 +1,4 @@
-"""Build the pinned OBS Clock revision against official OBS 33 host libraries."""
+"""Build the pinned ClockFace revision against official OBS 33 host libraries."""
 import argparse, hashlib, json, os, platform, plistlib, shutil, subprocess, tarfile, urllib.request, zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -13,7 +13,7 @@ def run(*args,**kwargs):
 def fetch(url,sha):
  cache=ROOT/'.ci-downloads';cache.mkdir(exist_ok=True);dest=cache/url.rsplit('/',1)[-1]
  if not dest.exists() or hashlib.sha256(dest.read_bytes()).hexdigest()!=sha:
-  with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'OBS-Clock-build'}),timeout=120) as response,dest.open('wb') as out:shutil.copyfileobj(response,out)
+  with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'ClockFace-build'}),timeout=120) as response,dest.open('wb') as out:shutil.copyfileobj(response,out)
  if hashlib.sha256(dest.read_bytes()).hexdigest()!=sha:raise RuntimeError('Checksum mismatch: '+dest.name)
  return dest
 
@@ -90,33 +90,33 @@ def main():
   if not iscc:raise RuntimeError('Inno Setup 6 is required')
   run(iscc,ROOT/'installer/windows.iss')
   setup=next((ROOT/'packages/Windows').glob('*.exe'));shutil.move(setup,out/setup.name)
-  shutil.make_archive(str(out/f'OBS-Clock-{VERSION}-Windows-x64-manual'),'zip',stage)
+  shutil.make_archive(str(out/f'ClockFace-{VERSION}-Windows-x64-manual'),'zip',stage)
  elif kind.startswith('macos'):
-  bundle=stage/'OBS-Clock.plugin';binary=bundle/'Contents/MacOS/OBS-Clock'
+  bundle=stage/'ClockFace.plugin';binary=bundle/'Contents/MacOS/ClockFace'
   run('lipo',binary,'-verify_arch',kind.split('-',1)[1]);run('otool','-L',binary)
   run('codesign','--force','--deep','--sign','-',bundle);run('codesign','--verify','--deep','--strict',bundle)
-  pkgroot=ROOT/'package-root';target=pkgroot/'Library/Application Support/obs-studio/plugins/OBS-Clock.plugin'
+  pkgroot=ROOT/'package-root';target=pkgroot/'Library/Application Support/obs-studio/plugins/ClockFace.plugin'
   shutil.copytree(bundle,target,symlinks=True,dirs_exist_ok=True)
   components=ROOT/'components.plist';run('pkgbuild','--analyze','--root',pkgroot,components)
   records=plistlib.loads(components.read_bytes())
   for record in records:record['BundleIsRelocatable']=False
   components.write_bytes(plistlib.dumps(records))
-  component=ROOT/'OBS-Clock-component.pkg'
-  run('pkgbuild','--identifier','com.wzaggle.obs-clock.user','--version',VERSION,'--root',pkgroot,'--install-location','/','--component-plist',components,component)
+  component=ROOT/'ClockFace-component.pkg'
+  run('pkgbuild','--identifier','com.wzaggle.clockface.user','--version',VERSION,'--root',pkgroot,'--install-location','/','--component-plist',components,component)
   distribution=ROOT/'distribution.xml'
-  distribution.write_text(f'''<installer-gui-script minSpecVersion="2"><title>OBS Clock {VERSION}</title>
+  distribution.write_text(f'''<installer-gui-script minSpecVersion="2"><title>ClockFace {VERSION}</title>
 <options customize="never" require-scripts="false"/>
 <domains enable_anywhere="false" enable_currentUserHome="true" enable_localSystem="false"/>
 <choices-outline><line choice="clock"/></choices-outline>
-<choice id="clock" visible="false"><pkg-ref id="com.wzaggle.obs-clock.user"/></choice>
-<pkg-ref id="com.wzaggle.obs-clock.user" version="{VERSION}" auth="none">OBS-Clock-component.pkg</pkg-ref></installer-gui-script>''')
-  setup=out/f'OBS-Clock-Setup-{VERSION}-{kind}.pkg';run('productbuild','--distribution',distribution,'--package-path',ROOT,setup)
+<choice id="clock" visible="false"><pkg-ref id="com.wzaggle.clockface.user"/></choice>
+<pkg-ref id="com.wzaggle.clockface.user" version="{VERSION}" auth="none">ClockFace-component.pkg</pkg-ref></installer-gui-script>''')
+  setup=out/f'ClockFace-Setup-{VERSION}-{kind}.pkg';run('productbuild','--distribution',distribution,'--package-path',ROOT,setup)
   run('installer','-pkg',setup,'-target','CurrentUserHomeDirectory')
-  installed=Path.home()/'Library/Application Support/obs-studio/plugins/OBS-Clock.plugin/Contents/MacOS/OBS-Clock'
+  installed=Path.home()/'Library/Application Support/obs-studio/plugins/ClockFace.plugin/Contents/MacOS/ClockFace'
   if not installed.exists() or installed.read_bytes()!=binary.read_bytes():raise RuntimeError('Installer verification failed')
-  with tarfile.open(out/f'OBS-Clock-{VERSION}-{kind}-manual.tar.gz','w:gz') as archive:archive.add(bundle,arcname=bundle.name)
+  with tarfile.open(out/f'ClockFace-{VERSION}-{kind}-manual.tar.gz','w:gz') as archive:archive.add(bundle,arcname=bundle.name)
  else:
-  expected_plugin=stage/'usr/lib/x86_64-linux-gnu/obs-modules/plugins/OBS-Clock.so'
+  expected_plugin=stage/'usr/lib/x86_64-linux-gnu/obs-modules/plugins/ClockFace.so'
   if not expected_plugin.is_file():raise RuntimeError('OBS 33 Linux plugin layout missing')
   control=stage/'DEBIAN';control.mkdir(exist_ok=True)
   # Derived package requirements include the Qt version used by this runner.
@@ -126,13 +126,13 @@ def main():
    output=subprocess.check_output(['dpkg-query','-S',str(Path(libdir)/soname)],text=True).strip()
    return output.split(':',1)[0]
   gui_package=package_owner('libQt6Gui.so.6');core_package=package_owner('libQt6Core.so.6')
-  (control/'control').write_text(f'Package: obs-clock\nVersion: {VERSION}\nArchitecture: amd64\nMaintainer: William Zaggle\nSection: video\nPriority: optional\nDepends: obs-studio (>= 33.0.1), {gui_package} (>= {qtversion}), {core_package} (>= {qtversion}), libstdc++6\nDescription: OBS Clock analog clock and scheduled message source\n')
-  run('dpkg-deb','--root-owner-group','--build',stage,out/f'OBS-Clock-{VERSION}-Ubuntu26.04-amd64.deb')
+  (control/'control').write_text(f'Package: clockface\nConflicts: obs-clock\nReplaces: obs-clock\nVersion: {VERSION}\nArchitecture: amd64\nMaintainer: William Zaggle\nSection: video\nPriority: optional\nDepends: obs-studio (>= 33.0.1), {gui_package} (>= {qtversion}), {core_package} (>= {qtversion}), libstdc++6\nDescription: ClockFace analog clock and scheduled message source\n')
+  run('dpkg-deb','--root-owner-group','--build',stage,out/f'ClockFace-{VERSION}-Ubuntu26.04-amd64.deb')
   run('dpkg-deb','--info',next(out.glob('*.deb')))
- for document in [ROOT/'USER.md',ROOT/'LICENSE',ROOT/f'docs/OBS-Clock-User-Guide-v{VERSION}.docx']:
+ for document in [ROOT/'USER.md',ROOT/'LICENSE',ROOT/f'docs/ClockFace-User-Guide-v{VERSION}.docx']:
   shutil.copy2(document,out/document.name)
  revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
- (out/'BUILD-INFO.json').write_text(json.dumps({'product':'OBS Clock','version':VERSION,'revision':revision,'platform':kind,'obs_sdk':SPEC['obs_version'],'automated_tests':'passed','obs_runtime_test':'not performed by CI','signing':'ad-hoc, not notarized' if kind.startswith('macos') else 'unsigned test installer'},indent=2)+'\n')
- (out/'INSTALL.txt').write_text('Close OBS before installing. Use the installer for this platform. See the included OBS Clock user guide. Native Linux DEB targets Ubuntu 26.04 and is not a Flatpak extension. macOS test packages are ad-hoc signed, not notarized.\n')
+ (out/'BUILD-INFO.json').write_text(json.dumps({'product':'ClockFace','version':VERSION,'revision':revision,'platform':kind,'obs_sdk':SPEC['obs_version'],'automated_tests':'passed','obs_runtime_test':'not performed by CI','signing':'ad-hoc, not notarized' if kind.startswith('macos') else 'unsigned test installer'},indent=2)+'\n')
+ (out/'INSTALL.txt').write_text('Close OBS before installing. Use the installer for this platform. See the included ClockFace user guide. Native Linux DEB targets Ubuntu 26.04 and is not a Flatpak extension. macOS test packages are ad-hoc signed, not notarized.\n')
  (out/'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in sorted(out.iterdir()) if p.is_file() and p.name!='SHA256SUMS.txt'))
 if __name__=='__main__':main()

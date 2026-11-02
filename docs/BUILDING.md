@@ -1,4 +1,4 @@
-# Building OBS Clock 1.1.0
+# Building ClockFace 1.1.1
 
 ## Native GitHub builds
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.1 ClockFace candidate
+
+- Rename the plugin, source display name, binaries, bundles, installers and repository to ClockFace.
+- Change the internal source ID to `clockface_source`; recreate test sources after installation.
+- Rebuild Windows x64, macOS ARM64, macOS Intel and native Ubuntu 26.04 packages.
+- Refresh the Word guide and all current installation instructions; clarify Flatpak is not supplied.
+- Windows setup removes the named sibling OBS-Clock test DLL. The Linux package replaces obs-clock.
+
+
 ## 1.1.0 candidate
 
 - Added macOS/Linux Qt time-zone and text rendering backend.
@@ -19,7 +28,7 @@ Scheduling and source-routing behavior did not change.
 
 ## 1.0.3
 
-Changed the display name to OBS Clock and the filename/folder to OBS-Clock.
+Changed the display name to ClockFace and the filename/folder to ClockFace.
 Organized the two-tier message controls and embedded the new Windows clock icon.
 Preserved the internal source identifier and saved setting keys.
 
@@ -35,7 +44,7 @@ and conditional color controls.
 
 ## 1.0
 
-Named the plugin OBSClock and added independent number and tick-mark colors.
+Named the plugin ClockFace and added independent number and tick-mark colors.
 
 ## Earlier development
 

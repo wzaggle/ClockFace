@@ -23,7 +23,7 @@ clock-time-tests.exe
 /package-root/
 /components.plist
 /distribution.xml
-/OBS-Clock-component.pkg
+/ClockFace-component.pkg
 **/__pycache__/
 
 /src/embedded_assets.hpp

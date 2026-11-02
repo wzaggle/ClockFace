@@ -83,7 +83,7 @@ def build(source,output):
                 color.attrib.pop(qn('w:'+attr),None)
     aid=new_numbering(doc);nid=None
     footer=section.footer.paragraphs[0];footer.paragraph_format.tab_stops.add_tab_stop(Inches(7),WD_TAB_ALIGNMENT.RIGHT)
-    r=footer.add_run('OBS Clock '+(ROOT/'VERSION').read_text().strip()+'\tPage ');r.font.size=Pt(9)
+    r=footer.add_run('ClockFace '+(ROOT/'VERSION').read_text().strip()+'\tPage ');r.font.size=Pt(9)
     for kind in ['PAGE','NUMPAGES']:
         f=el('w:fldSimple',instr=kind);rnode=el('w:r');rpr=el('w:rPr');rpr.append(el('w:sz',val=18));rnode.append(rpr);text=el('w:t');text.text='1';rnode.append(text);f.append(rnode);footer._p.append(f)
         if kind=='PAGE':footer.add_run(' of ').font.size=Pt(9)
@@ -116,10 +116,10 @@ def build(source,output):
             inline(p,match.group(2));p.paragraph_format.space_after=Pt(6);continue
         p=doc.add_paragraph();inline(p,line)
         if line.startswith('**Version '):p.alignment=WD_ALIGN_PARAGRAPH.CENTER;p.paragraph_format.space_after=Pt(11)
-    doc.core_properties.title='OBS Clock User Guide';doc.core_properties.subject='Platform installation and user instructions for OBS Clock 1.1.0'
-    doc.core_properties.author='OBS Clock project';doc.core_properties.keywords='OBS Clock Windows macOS Linux user guide 1.1.0'
+    doc.core_properties.title='ClockFace User Guide';doc.core_properties.subject='Platform installation and user instructions for ClockFace 1.1.1'
+    doc.core_properties.author='ClockFace project';doc.core_properties.keywords='ClockFace Windows macOS Linux user guide 1.1.1'
     output.parent.mkdir(parents=True,exist_ok=True);doc.save(output)
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--source',type=Path,default=ROOT/'USER.md');parser.add_argument('--output',type=Path,default=ROOT/'docs/OBS-Clock-User-Guide-v1.1.0.docx')
+    parser=argparse.ArgumentParser();parser.add_argument('--source',type=Path,default=ROOT/'USER.md');parser.add_argument('--output',type=Path,default=ROOT/'docs/ClockFace-User-Guide-v1.1.1.docx')
     args=parser.parse_args();build(args.source,args.output);print(args.output)

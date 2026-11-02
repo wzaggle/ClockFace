@@ -1,5 +1,5 @@
 name: Build All Platforms
-run-name: OBS Clock installers ${{ github.sha }}
+run-name: ClockFace installers ${{ github.sha }}
 on:
   workflow_dispatch:
   push:
@@ -9,7 +9,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: obs-clock-${{ github.ref }}
+  group: clockface-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   native:
@@ -109,7 +109,7 @@ jobs:
           PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: OBS-Clock-AllPlatforms-${{ github.sha }}
+          name: ClockFace-AllPlatforms-${{ github.sha }}
           path: installers/
           if-no-files-found: error
           retention-days: 7

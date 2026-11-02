@@ -11,4 +11,4 @@ gendef "$OBS_DLL"
 x86_64-w64-mingw32-dlltool -d obs.def -l libobs.a
 x86_64-w64-mingw32-windres -I"$root/resources" "$root/resources/version.rc" -o version.o
 x86_64-w64-mingw32-g++ -std=c++17 -shared -O2 -static -static-libgcc -static-libstdc++ \
- -I"$OBS_SOURCE_DIR/libobs" -I"$OBS_CONFIG_DIR" "$root/src/clock.cpp" libobs.a version.o -lgdi32 -luser32 -o OBS-Clock.dll
+ -I"$OBS_SOURCE_DIR/libobs" -I"$OBS_CONFIG_DIR" "$root/src/clock.cpp" libobs.a version.o -lgdi32 -luser32 -o ClockFace.dll

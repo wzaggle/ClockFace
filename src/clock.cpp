@@ -17,8 +17,8 @@
 #include "platform_clock.hpp"
 #include <atomic>
 OBS_DECLARE_MODULE()
-MODULE_EXPORT const char *obs_module_name(void) { return "OBS Clock"; }
-MODULE_EXPORT const char *obs_module_description(void) { return "OBS Clock 1.1.0 - native analog clock for OBS 33"; }
+MODULE_EXPORT const char *obs_module_name(void) { return "ClockFace"; }
+MODULE_EXPORT const char *obs_module_description(void) { return "ClockFace 1.1.1 - native analog clock for OBS 33"; }
 namespace {
 constexpr float pi=3.14159265358979323846f;
 struct Clock {
@@ -40,10 +40,10 @@ struct Clock {
  gs_texrender_t *composite=nullptr; float opacity=1.f;
  int movement=2; bool seconds=true, recolor=false; uint32_t colors[4]{};
 };
-const char *name(void*) { return "OBS Clock"; }
+const char *name(void*) { return "ClockFace"; }
 void load(gs_image_file_ex &im,const std::string &path) {
  gs_image_file_ex_free(&im); gs_image_file_ex_init(&im,path.c_str(),GS_IMAGE_ALPHA_STRAIGHT); gs_image_file_ex_init_texture(&im);
- if (!im.loaded) blog(LOG_WARNING,"[OBS Clock] Unable to load %s",path.c_str());
+ if (!im.loaded) blog(LOG_WARNING,"[ClockFace] Unable to load %s",path.c_str());
 }
 std::string asset(const std::string &file) {
  char *p=obs_module_config_path(file.c_str()); std::string out=p?p:""; bfree(p); return out;
@@ -76,7 +76,7 @@ void update(void *ptr,obs_data_t *s) {
  std::string tz=obs_data_get_string(s,"timezone");c.utc=tz=="UTC";c.zone=nullptr;
  if(!tz.empty() && !c.utc){
   for(const auto &z:clock_zones())if(z.key==tz){c.zone=&z.info;break;}
-  if(!c.zone)blog(LOG_WARNING,"[OBS Clock] Unknown time zone '%s'; using system local time",tz.c_str());
+  if(!c.zone)blog(LOG_WARNING,"[ClockFace] Unknown time zone '%s'; using system local time",tz.c_str());
  }
  const int face=std::clamp(int(obs_data_get_int(s,"face")),0,13);
  if(!obs_data_has_user_value(s,"show_ticks") && obs_data_has_user_value(s,"show_markings")){
@@ -309,7 +309,7 @@ bool add_text_source(void *param,obs_source_t *source) {
 }
 obs_properties_t *properties(void *ptr) {
  auto *p=obs_properties_create();
- obs_properties_add_text(p,"version_info","OBS Clock 1.1.0",OBS_TEXT_INFO);
+ obs_properties_add_text(p,"version_info","ClockFace 1.1.1",OBS_TEXT_INFO);
  auto *f=obs_properties_add_list(p,"face","Face",OBS_COMBO_TYPE_LIST,OBS_COMBO_FORMAT_INT);
  const char *faces[]={"Original","School","Minute ticks","No ticks","Script","Black","Broadcast","Railway","Minimal (transparent)","Custom PNG","Classic (ivory / Roman)","Studio Dark","Church Tower","Neon"};
  for(int i=0;i<14;++i)if(i!=9)obs_property_list_add_int(f,faces[i],i);
@@ -330,7 +330,7 @@ obs_properties_t *properties(void *ptr) {
  obs_properties_add_text(p,"countdown_hint","Message appears 1 hour prior to the selected End time and clears at End time each day. Uses the selected time zone.",OBS_TEXT_INFO);
  auto *textList=obs_properties_add_list(p,"text_source_uuid","Countdown text source",OBS_COMBO_TYPE_LIST,OBS_COMBO_FORMAT_STRING);
  obs_property_list_add_string(textList,"Select a text source…","");obs_enum_sources(add_text_source,textList);
- obs_properties_add_text(p,"external_hint","Choose a dedicated text source with Read from file off. Format that source in OBS; OBS Clock changes only its text.",OBS_TEXT_INFO);
+ obs_properties_add_text(p,"external_hint","Choose a dedicated text source with Read from file off. Format that source in OBS; ClockFace changes only its text.",OBS_TEXT_INFO);
  if(ptr){
   auto &c=*static_cast<Clock*>(ptr);std::string selected;
   {std::lock_guard<std::mutex> lock(c.mutex);selected=c.textSourceUuid;}
@@ -381,19 +381,19 @@ FILE *open_asset_file(const char *path) {
 }
 }
 bool obs_module_load(void) {
- blog(LOG_INFO,"[OBS Clock] 1.1.0 initializing");
+ blog(LOG_INFO,"[ClockFace] 1.1.1 initializing");
  char *folder=obs_module_config_path("artwork");
- if(!folder || os_mkdirs(folder)<0) {bfree(folder);blog(LOG_ERROR,"[OBS Clock] Cannot create artwork directory");return false;} bfree(folder);
+ if(!folder || os_mkdirs(folder)<0) {bfree(folder);blog(LOG_ERROR,"[ClockFace] Cannot create artwork directory");return false;} bfree(folder);
  for(const auto &asset:embedded_assets) {
   char *path=obs_module_config_path(asset.name);FILE *file=path?open_asset_file(path):nullptr;
-  if(!file)blog(LOG_ERROR,"[OBS Clock] Cannot write %s (errno %d)",path?path:"(null)",errno);
+  if(!file)blog(LOG_ERROR,"[ClockFace] Cannot write %s (errno %d)",path?path:"(null)",errno);
   bfree(path);
-  if(!file) {blog(LOG_ERROR,"[OBS Clock] Cannot extract embedded artwork");return false;}
+  if(!file) {blog(LOG_ERROR,"[ClockFace] Cannot extract embedded artwork");return false;}
   bool ok=fwrite(asset.bytes,1,asset.size,file)==asset.size; if(fclose(file)!=0)ok=false;
-  if(!ok){blog(LOG_ERROR,"[OBS Clock] Failed writing embedded asset %s (errno %d)",asset.name,errno);return false;}
+  if(!ok){blog(LOG_ERROR,"[ClockFace] Failed writing embedded asset %s (errno %d)",asset.name,errno);return false;}
  }
- obs_source_info info{};info.id="simpleclock_source";info.type=OBS_SOURCE_TYPE_INPUT;
+ obs_source_info info{};info.id="clockface_source";info.type=OBS_SOURCE_TYPE_INPUT;
  info.output_flags=OBS_SOURCE_VIDEO|OBS_SOURCE_CUSTOM_DRAW;info.get_name=name;info.create=create;info.destroy=destroy;
  info.get_width=size;info.get_height=height;info.get_defaults=defaults;info.get_properties=properties;info.update=update;info.video_render=render;info.video_tick=tick;
- obs_register_source(&info);blog(LOG_INFO,"[OBS Clock] 1.1.0 loaded");return true;
+ obs_register_source(&info);blog(LOG_INFO,"[ClockFace] 1.1.1 loaded");return true;
 }

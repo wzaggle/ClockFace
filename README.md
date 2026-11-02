@@ -1,16 +1,19 @@
-# OBS Clock
+# ClockFace
 
-OBS Clock is a native analog-clock source for OBS Studio 33, with selectable faces
+ClockFace is a native analog-clock source for OBS Studio 33, with selectable faces
 and hands, custom backgrounds, independent markings/colors, time zones, and a
 scheduled daily message displayed on the clock or in a dedicated OBS text source.
 
-## 1.1.0 development candidate
+## 1.1.1 development candidate
 
-This revision adds a macOS/Linux text and time-zone backend while preserving the
-Windows GDI backend and the `simpleclock_source` compatibility ID. The accepted
-Windows 1.0.4 release remains the baseline. Native cloud builds produce Windows, Mac Intel, Mac Apple silicon, and Ubuntu
-installers from the same source revision. Live OBS acceptance testing remains
-the next step. Download packages from the GitHub release linked below.
+This revision renames the plugin to ClockFace, including its source type,
+filenames, installation directories and packages. Add **ClockFace** as a new source
+in test scenes: the internal ID is now `clockface_source`, replacing the earlier
+test-only ID without a compatibility alias. Remove old clock plugin copies before
+installing. Windows setup removes the named OBS-Clock test DLL beside the new folder.
+
+Native builds produce Windows, Mac Intel, Mac Apple silicon and Ubuntu installers
+from one source revision. Live OBS acceptance testing remains the next step.
 
 ## GitHub builds
 
@@ -31,12 +34,12 @@ See [cloud builds](docs/CLOUD_BUILDS.md), [build notes](docs/BUILDING.md),
 
 ## Build and download
 
-Download [OBS Clock 1.1.0 Release Candidate 1](https://github.com/wzaggle/OBS-Clock/releases/tag/v1.1.0-rc1).
+Download [ClockFace 1.1.1 Release Candidate 1](https://github.com/wzaggle/ClockFace/releases/tag/v1.1.1-rc1).
 The release provides individual Windows, Apple silicon Mac, Intel Mac, and Ubuntu
 installers, plus the combined AllPlatforms ZIP, Word user guide, and SHA-256 checksums.
 Release assets remain available independently of the expiring Actions artifacts.
 
-[The verified build run](https://github.com/wzaggle/OBS-Clock/actions/runs/41390335998)
+[The previous build run](https://github.com/wzaggle/ClockFace/actions/runs/41390335998)
 records the source revision and native test results. The repository keeps the full
 source, artwork, AGENTS.md and build scripts.
 

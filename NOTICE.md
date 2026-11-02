@@ -10,7 +10,7 @@ GPL-2.0-or-later; the license text is in LICENSE. Do not infer that this stateme
 establishes redistribution rights for the original user-supplied artwork.
 Review those terms or replace the affected originals before public distribution.
 
-The OBS Clock icon and ten-concept illustration were generated for this project.
+The ClockFace icon and ten-concept illustration were generated for this project.
 The illustration is a design reference, not a screenshot or a set of bundled
 backgrounds. Coastal and Copper illustrate custom-image configurations.
 

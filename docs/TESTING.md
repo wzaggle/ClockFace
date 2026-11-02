@@ -1,4 +1,4 @@
-# Testing OBS Clock 1.1.0
+# Testing ClockFace 1.1.1
 
 ## Windows 1.0.4 baseline evidence
 
@@ -16,7 +16,7 @@
 ## Acceptance scenarios to record
 
 1. Load/restart OBS 33 with just one installed clock DLL; check no duplicate source
-   registration or new Simple Clock / OBS Clock initialization errors.
+   registration or new Simple Clock / ClockFace initialization errors.
 2. Try all faces and hand sets; verify center pivots, color contrast, second-hand
    movements, opacity endpoints, tick-only/numbers-only/both/neither, and Neon glow.
 3. Test custom backgrounds, transparency, picker visibility, and path retention.
@@ -47,7 +47,7 @@ Record OBS version, operating system and architecture, plugin version/SHA-256, t
 expected behavior, actual behavior, and relevant current OBS log lines. Keep
 private logs and environment details out of public issues unless reviewed.
 
-## 1.1.0 candidate evidence
+## Previous 1.1.0 candidate evidence
 
 - Linux compile check passed with OBS 33.0.1 headers and host OBS 30 linker library.
   This is not an OBS 33 runtime validation and is not a release artifact.
@@ -62,8 +62,8 @@ private logs and environment details out of public issues unless reviewed.
 Repeat the acceptance scenarios on Windows, Intel Mac, Apple silicon Mac, and
 Ubuntu26 native OBS. Record architecture and platform-specific time-zone IDs.
 
-## Matching native build evidence
+## Previous native build evidence
 
-See https://github.com/wzaggle/OBS-Clock/actions/runs/41390335998 for the final
+See https://github.com/wzaggle/ClockFace/actions/runs/41390335998 for the final
 OBS 33 installation-layout build. The combined artifact records source commit
 48a9b234b549e12d3a02d0ac704cf380634e0c94 in all four BUILD-INFO files.

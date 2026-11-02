@@ -18,4 +18,4 @@ if ($LASTEXITCODE -ne 0) { throw "Build failed" }
 if ($LASTEXITCODE -ne 0) { throw "Tests failed" }
 & cmake --install $buildDir --config Release --prefix $stageDir
 if ($LASTEXITCODE -ne 0) { throw "Staging failed" }
-Write-Host "Staged DLL: $stageDir/OBS-Clock/OBS-Clock.dll"
+Write-Host "Staged DLL: $stageDir/ClockFace/ClockFace.dll"

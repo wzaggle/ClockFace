@@ -1,12 +1,12 @@
-# Agent instructions for OBS Clock
+# Agent instructions for ClockFace
 
 ## Product and scope
 
-- Public name: OBS Clock. Current version: 1.1.0.
+- Public name: ClockFace. Current version: 1.1.1.
 - C++ port from significantly enhanced OBS_Clock.lua script.
-- Windows filename and folder: OBS-Clock.dll in an OBS-Clock folder.
-- Preserve the internal source ID `simpleclock_source`. It is a compatibility key,
-  not a branding string. Preserve saved setting keys and intentional migrations.
+- Windows filename and folder: ClockFace.dll in an ClockFace folder.
+- Internal source ID: `clockface_source`. This intentionally replaces the earlier
+  test-only ID. Do not register compatibility aliases. Preserve saved setting keys.
 - Windows x64 / OBS 33 is the current working target. Mac Intel, Mac Apple Silicon,
   and Linux builds are now in scope with native GitHub Actions builds.
 - Keep changes incremental, reviewable, and testable. Do not expand scope because
