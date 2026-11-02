@@ -10,7 +10,7 @@ This revision adds a macOS/Linux text and time-zone backend while preserving the
 Windows GDI backend and the `simpleclock_source` compatibility ID. The accepted
 Windows 1.0.4 release remains the baseline. Native cloud builds produce Windows, Mac Intel, Mac Apple silicon, and Ubuntu
 installers from the same source revision. Live OBS acceptance testing remains
-the next step. Download packages through the build run linked below.
+the next step. Download packages from the GitHub release linked below.
 
 ## GitHub builds
 
@@ -31,13 +31,14 @@ See [cloud builds](docs/CLOUD_BUILDS.md), [build notes](docs/BUILDING.md),
 
 ## Build and download
 
-Open [the matching installer build](https://github.com/wzaggle/OBS-Clock/actions/runs/41390335998).
-Download the combined **OBS-Clock-AllPlatforms** artifact, or an individual
-**packages-windows**, **packages-macos-arm64**, **packages-macos-x86_64**, or
-**packages-linux** artifact. GitHub sign-in is required for this private project.
-Actions artifacts expire after seven days; retain downloaded test packages locally.
-Each contains the Word guide, Markdown instructions, license, build metadata and
-checksums. The repository keeps the full source, artwork, AGENTS.md and build scripts.
+Download [OBS Clock 1.1.0 Release Candidate 1](https://github.com/wzaggle/OBS-Clock/releases/tag/v1.1.0-rc1).
+The release provides individual Windows, Apple silicon Mac, Intel Mac, and Ubuntu
+installers, plus the combined AllPlatforms ZIP, Word user guide, and SHA-256 checksums.
+Release assets remain available independently of the expiring Actions artifacts.
+
+[The verified build run](https://github.com/wzaggle/OBS-Clock/actions/runs/41390335998)
+records the source revision and native test results. The repository keeps the full
+source, artwork, AGENTS.md and build scripts.
 
 ## Validation and testing scope
 
