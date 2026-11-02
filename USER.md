@@ -4,7 +4,7 @@
 
 **Version 1.1.1**  |  OBS Studio 33  |  Windows macOS and Linux  |  November 2 2026
 
-ClockFace adds an analog clock source with selectable artwork, background images, and daily countdown messages. This guide covers installation on each OBS platform and the version 1.1.1 controls.
+ClockFace adds an analog clock source with selectable artwork, background images, and daily countdown messages. The goal was to replace the aging clocksource.lua script with a native plugin.  This guide covers installation on each OBS platform and the version 1.1.1 controls.
 
 ## Choose the correct installer
 
@@ -268,15 +268,5 @@ The clock continues updating the selected text source even when the clock itself
 
 Close OBS completely. On Windows, replace ClockFace.dll in its existing ClockFace folder, using the portable folder when applicable. Normally, run the updated installer or update the package through your software manager. For manual macOS installation, replace the complete .plugin bundle; for native Linux, follow its package instructions; for Flatpak, a separate extension is required. Restart OBS and check the clock. Retain the prior package until testing is complete.
 
-### Export this guide as PDF
 
-Open this document in Word, choose Save As or Export, and select PDF. Use standard print quality and confirm that all pages are included. Inspect the exported PDF for clean tables, page breaks, and readable images before including it with a release.
-
-The project contains the editable Word guide, its Markdown source, and a script for rebuilding the Word version. Keep the guide version aligned with the DLL version when preparing later releases.
-
-### Installation references
-
-OBS plugin guide: https://obsproject.com/kb/plugins-guide
-
-OBS 33 Windows layout: https://obsproject.com/kb/legacy-plugin-developer-info
 
