@@ -1,0 +1,18 @@
+uniform float4x4 ViewProj;
+uniform texture2d image;
+uniform float4 tint;
+uniform bool recolor;
+uniform bool face;
+uniform float opacity;
+uniform bool premultiplied;
+sampler_state textureSampler { Filter = Linear; AddressU = Clamp; AddressV = Clamp; };
+struct VertData { float4 pos : POSITION; float2 uv : TEXCOORD0; };
+VertData VSDefault(VertData v) { v.pos = mul(float4(v.pos.xyz,1.0),ViewProj); return v; }
+float4 PSDefault(VertData v) : TARGET {
+ float4 c=image.Sample(textureSampler,v.uv);
+ if (recolor && face) c=c*tint;
+ else if (recolor) c=float4(tint.rgb,c.a*tint.a);
+ if (premultiplied) return c*opacity;
+ return float4(c.rgb,c.a*opacity);
+}
+technique Draw { pass { vertex_shader = VSDefault(v); pixel_shader = PSDefault(v); } }
